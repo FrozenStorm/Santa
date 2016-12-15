@@ -1,5 +1,7 @@
 package Utility;
 
+import java.util.Comparator;
+
 public class Gift {
 	public int giftId;
 	public Location location;

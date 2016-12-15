@@ -13,8 +13,8 @@ import java.util.List;
 public class CsvHandler {
 	private static final char DEFAULT_SEPARATOR = ',';
 	
-	public static List<Gift>ImportData(String src){
-		List<Gift> giftList = new ArrayList<Gift>();
+	public static ArrayList<Gift> ImportData(String src){
+		ArrayList<Gift> giftList = new ArrayList<Gift>();
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -32,8 +32,8 @@ public class CsvHandler {
         return giftList;
 	}
 	
-	public static List<Gift>ImportSubset(String src, int startLine, int length){
-		List<Gift> giftList = ImportData(src);
+	public static ArrayList<Gift> ImportSubset(String src, int startLine, int length){
+		ArrayList<Gift> giftList = ImportData(src);
 		if(startLine >= 0 && length > 0 && (startLine + length) <= giftList.size()){
 			int i;
 			for(i=0;i<startLine;i++){
@@ -46,7 +46,7 @@ public class CsvHandler {
 		return giftList;
 	}
 	
-	public static void ExportData(String dest, List<List<Gift>> data){
+	public static void ExportData(String dest, Solution data){
 		try{
 			FileWriter fw = new FileWriter(dest);
 		    BufferedWriter bw = new BufferedWriter(fw);

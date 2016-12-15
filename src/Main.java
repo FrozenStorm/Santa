@@ -1,20 +1,18 @@
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import Utility.CsvHandler;
-import Utility.Gift;
-import Utility.Location;
+import Utility.*;
 
 public class Main {
 
 	public static void main(String[] args) {
-		List<List<Gift>> solution = new ArrayList<List<Gift>>();
-		List<Gift> singleRoute = CsvHandler.ImportSubset(".\\Data\\gifts.csv", 0, 10);
-		solution.add(singleRoute);
-		System.out.println("Cost " + Location.Cost(singleRoute));
-		System.out.println("TotalCost " + Location.TotalCost(solution));
-		CsvHandler.ExportData(".\\Solution\\solution.csv", solution);
+		ArrayList<Solution> mySolutions = new ArrayList<>();
+		ArrayList<Gift> importedData = CsvHandler.ImportSubset(".\\Data\\gifts.csv", 0, 100000);
+		mySolutions = NearestNeighbor.GetSolutions(1, importedData);
+		System.out.println("Cost " + mySolutions.get(0).cost);
+		CsvHandler.ExportData(".\\Solution\\solution.csv", mySolutions.get(0));
 	}
 
 }

@@ -6,8 +6,8 @@ import Utility.Location;
 
 public class Route extends ArrayList<Gift>{
 	private static final long serialVersionUID = 2L;
-	public double cost;
-	public double weight;
+	public double cost=0;
+	public double weight=0;
 	
 	public void Update(){
 		Gift currentGift = this.get(0);;
@@ -30,5 +30,14 @@ public class Route extends ArrayList<Gift>{
 		}
 
 		cost += Location.Haversine(currentGift.location, Location.NorthPole) * remainingWeight;
+	}
+	
+	public void Print(){
+		System.out.println("  Routecost = " + cost + " Routeweight = " + weight);
+		for(int i=0;i<this.size();i++){
+			System.out.print("    Gift[" + i + "] :");
+			this.get(i).Print();
+			System.out.print("\n");
+		}
 	}
 }

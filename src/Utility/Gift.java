@@ -12,4 +12,9 @@ public class Gift {
 		location = new Location(latitude, longtitude);
 		this.weight = weight;
 	}
+	
+	public void Print(){
+		location.Print();
+		System.out.print(" weight = " + weight);
+	}
 }

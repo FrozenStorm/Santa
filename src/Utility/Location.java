@@ -5,9 +5,9 @@ public class Location
 	private static double EARTH_RADIUS_KM = 6371;
 	public static Location NorthPole = new Location(90, 0); // TODO muss das nicht auch in bogenmas sein oder ist es bereits
 	
-	public double latitude;
-	public double longtitude;
-	public double cosLatitude;
+	public double latitude=0;
+	public double longtitude=0;
+	public double cosLatitude=0;
 	
 	public Location(double latitude, double longtitude)
 	{
@@ -31,5 +31,9 @@ public class Location
 	private static double ToRad(double input)
 	{
 	    return input * (Math.PI / 180);
+	}
+	
+	public void Print(){
+		System.out.print("latitude = " + latitude  + " longtitude = " + longtitude);
 	}
 }

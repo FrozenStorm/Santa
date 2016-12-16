@@ -54,7 +54,7 @@ public class CsvHandler {
 		    out.println("GiftId,TripId");
 			for(int route=0; route<data.size(); route++){
 				for(int i=0; i<data.get(route).size(); i++){
-					out.println(data.get(route).get(i).giftId + "," + i);
+					out.println(data.get(route).get(i).giftId + "," + route);
 				}
 			}
 			out.close();

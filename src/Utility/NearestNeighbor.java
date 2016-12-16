@@ -7,7 +7,7 @@ public class NearestNeighbor {
 	static double MAX_WEIGHT = 1000;
 	static public ArrayList<Solution> GetSolutions(int number, ArrayList<Gift> data){
 		Random myRand = new Random();
-		int indexNow;
+		int indexNow,i2=0;
 		Solution nextSolution;
 		Gift giftNow;
 		ArrayList<Solution> mySolutions = new ArrayList<>();
@@ -64,7 +64,7 @@ public class NearestNeighbor {
 		double Dnext = 0;			//Distanz zum naechsten Punkt
 		double D = Location.Haversine(g0.location, SortL.get(ind1%SortL.size()).location);			//kuerzeste bisher gefundene Distanz
 		double LatBound = (g0.location.latitude+getAngDist(SortL.get(ind1%SortL.size()).location.latitude, D))%(2*Math.PI);		// Schranke berechnen
-		
+		/*
 		System.out.print("Index = " + ind1 + " ");
 		g0.Print();
 		System.out.print("\n");
@@ -72,12 +72,11 @@ public class NearestNeighbor {
 			System.out.print("    Gift[" + i + "] :");
 			SortL.get(i).Print();
 			System.out.print("\n");
-		}
-		
+		}*/
 		while(!PnextFound){
 			ind = (ind1+k)%SortL.size();
 			//System.out.println(ind);
-			if( (SortL.get(ind).location.longtitude < LatBound) || (SortL.get(ind).location.latitude >= g0.location.latitude) ){
+			if( ((SortL.get(ind).location.latitude < LatBound) || (SortL.get(ind).location.latitude >= g0.location.latitude)) && k < SortL.size()/2){
 				Dnext = Location.Haversine(g0.location, SortL.get(ind).location);
 				if( Dnext < D ){
 					D = Dnext;		//kuerzere Distanz merken
@@ -97,7 +96,7 @@ public class NearestNeighbor {
 			ind = (ind1-k)%SortL.size();
 			if(ind < 0) ind += ((int)(Math.abs(ind)/SortL.size())+1)*SortL.size();
 			//System.out.println(ind);
-			if( (SortL.get(ind).location.longtitude > LatBound) || (SortL.get(ind).location.latitude <= g0.location.latitude) ){
+			if( ((SortL.get(ind).location.latitude > LatBound) || (SortL.get(ind).location.latitude <= g0.location.latitude)) && k < SortL.size()/2){
 				Dnext = Location.Haversine(g0.location, SortL.get(ind).location);
 				if( Dnext < D ){
 					D = Dnext;		//kuerzere Distanz merken
@@ -115,7 +114,11 @@ public class NearestNeighbor {
 	}
 	
 	private static double getAngDist(double Lat0, double D){
-		double Ang = (D/(6371*Math.sin(Lat0)))%(2*Math.PI);  
+		double Ang = (D/(6371*Math.sin(Lat0)));
+		if(Ang > Math.PI){
+			Ang = Math.PI;
+			System.out.println("Keine Schranke");
+		}
 		return Ang;
 	}
 }

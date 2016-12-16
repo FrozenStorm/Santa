@@ -13,6 +13,43 @@ import java.util.List;
 public class CsvHandler {
 	private static final char DEFAULT_SEPARATOR = ',';
 	
+	public static ArrayList<Solution> ImportSolution(ArrayList<Gift> giftList, String src, int number){
+		ArrayList<Solution> solutionList = new ArrayList<Solution>();
+		Solution solutionNow;
+		
+		BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        
+        try{
+        	for(int x=0;x<number;x++){
+        		System.out.println("Importing Solution " + x);
+	        	solutionNow = new Solution();
+	        	br = new BufferedReader(new FileReader(src + x + ".csv"));
+	        	br.readLine(); // Ignore Header
+	            while ((line = br.readLine()) != null) {
+	                String[] gift = line.split(cvsSplitBy); // use comma as separator
+	                while(Integer.valueOf(gift[1])>=solutionNow.size())solutionNow.add(new Route()); // Fehlende Routen erzeugen
+                	if(Integer.valueOf(gift[0]) == giftList.get(Integer.valueOf(gift[0])-1).giftId){
+                		solutionNow.get(Integer.valueOf(gift[1])).add(giftList.get(Integer.valueOf(gift[0])-1));
+                	}
+                	else
+                	{
+                		System.out.println("Error");
+                	}
+	            }
+	            for(int y=0;y<solutionNow.size();y++){
+	            	solutionNow.get(y).Update();
+	            }
+	            solutionNow.Update();
+	            solutionList.add(solutionNow);
+	        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return solutionList;
+	}
+	
 	public static ArrayList<Gift> ImportData(String src){
 		ArrayList<Gift> giftList = new ArrayList<Gift>();
         BufferedReader br = null;
